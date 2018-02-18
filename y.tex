@@ -1,0 +1,58 @@
+% Explaining Y
+% By John Peloquin
+\documentclass[letterpaper,12pt]{article}
+\usepackage{amsmath,fourier}
+
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\om}{\mathbf{\omega}}
+\newcommand{\Om}{\mathbf{\Omega}}
+\newcommand{\Th}{\mathbf{\Theta}}
+
+% Meta
+\title{Explaining~\(\Y\)}
+\author{John Peloquin}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent In the lambda calculus, given a term~\(F\), how can we find a \emph{fixed point} for~\(F\)---that is, a term~\(x\) such that \(Fx=x\)? Well, if infinite terms were allowed, we could just take
+\[x=F(F(\cdots))\]
+with \(F\)~repeated infinitely many times. Because then we would have
+\[Fx=F(F(F(\cdots)))=x\]
+Sadly, infinite terms are not allowed. However, we can achieve the desired goal by constructing a term which ``generates'' infinitely many~\(F\)'s. First consider
+\[\om=\lambda x.xx\]
+and
+\[\Om=\om\om\]
+Then \(\Om\) \(\beta\)-reduces to itself infinitely since
+\begin{align*}
+\Om&=\om\om&&\text{by definition of }\Om\\
+	&=(\lambda x.xx)\om&&\text{by definition of }\om\\
+	&=\om\om&&\text{by }\beta\text{-reduction}\\
+	&=\Om&&\\
+	&=\cdots&&
+\end{align*}
+If we introduce \(F\) into~\(\om\), we can generate an~\(F\) at each \(\beta\)-reduction step of~\(\Om\). Let \(\om_F=\lambda x.F(xx)\) and \(\Om_F=\om_F\om_F\). Then
+\[\Om_F=\om_F\om_F=(\lambda x.F(xx))\om_F=F(\om_F\om_F)=F(\Om_F)\]
+In other words, \(x=\Om_F\) is a fixed point of~\(F\).
+
+We can generalize this and define the fixed-point combinator
+\[\Y=\lambda f.\ \Om_f=\lambda f.(\lambda x.f(xx))(\lambda x.f(xx))\]
+So \(\Y F=F(\Y F)\) is a fixed point of~\(F\) for any~\(F\). This is the \(\Y\)~combinator.
+
+The \(\Y\)~combinator is important because it lets us define \emph{recursive} functions in the lambda calculus. For example, if we want~\(G\) such that \(GX=X(XG)\) for all~\(X\), we would have it if
+\[G=\lambda x.x(xG)=(\lambda gx.x(xg))G\]
+So we can just take \(G=\Y(\lambda gx.x(xg))\).
+
+The \(\Y\)~combinator is not the only fixed-point combinator. Above, we might have interchanged the order of \(\lambda f\) and~\(\lambda x\) to obtain
+\[A=\lambda xf.f(xxf)\]
+and
+\[\Th=AA\]
+Then
+\[\Th F=AAF=(\lambda f.f(AAf))F=F(AAF)=F(\Th F)\]
+This is Turing's fixed-point combinator, which has certain advantages over the \(\Y\)~combinator. There are infinitely many more.
+% References
+\begin{thebibliography}{0}
+\bibitem{barendregt} Barendregt, H. and E.~Barendsen. \textit{Introduction to Lambda Calculus.} 2000.
+\end{thebibliography}
+\end{document}
