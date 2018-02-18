@@ -16,10 +16,10 @@
 \begin{document}
 \maketitle
 
-\noindent In the lambda calculus, given a term~\(F\), how can we find a \emph{fixed point} for~\(F\)---that is, a term~\(x\) such that \(Fx=x\)? Well, if infinite terms were allowed, we could just take
-\[x=F(F(\cdots))\]
+\noindent In the lambda calculus, given a term~\(F\), how can we find a \emph{fixed point} for~\(F\)---that is, a term~\(X\) such that \(FX=X\)? Well, if infinite terms were allowed, we could just take
+\[X=F(F(\cdots))\]
 with \(F\)~repeated infinitely many times. Because then we would have
-\[Fx=F(F(F(\cdots)))=x\]
+\[FX=F(F(F(\cdots)))=X\]
 Sadly, infinite terms are not allowed. However, we can achieve the desired goal by constructing a term which ``generates'' infinitely many~\(F\)'s. First consider
 \[\om=\lambda x.xx\]
 and
@@ -34,7 +34,7 @@ Then \(\Om\) \(\beta\)-reduces to itself infinitely since
 \end{align*}
 If we introduce \(F\) into~\(\om\), we can generate an~\(F\) at each \(\beta\)-reduction step of~\(\Om\). Let \(\om_F=\lambda x.F(xx)\) and \(\Om_F=\om_F\om_F\). Then
 \[\Om_F=\om_F\om_F=(\lambda x.F(xx))\om_F=F(\om_F\om_F)=F(\Om_F)\]
-In other words, \(x=\Om_F\) is a fixed point of~\(F\).
+In other words, \(X=\Om_F\) is a fixed point of~\(F\).
 
 We can generalize this and define the fixed-point combinator
 \[\Y=\lambda f.\ \Om_f=\lambda f.(\lambda x.f(xx))(\lambda x.f(xx))\]
