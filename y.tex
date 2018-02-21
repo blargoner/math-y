@@ -32,7 +32,7 @@ Then \(\Om\) \(\beta\)-reduces to itself infinitely since
 	&=\Om&&\\
 	&=\cdots&&
 \end{align*}
-If we introduce \(F\) into~\(\om\), we can generate an~\(F\) at each \(\beta\)-reduction step of~\(\Om\). Let \(\om_F=\lambda x.F(xx)\) and \(\Om_F=\om_F\om_F\). Then
+If we introduce \(F\) into~\(\om\), we can generate an~\(F\) at each \(\beta\)-reduction step of~\(\Om\). Let \(\om_F=\lambda x.F(xx)\) and \(\Om_F=\om_F\om_F\) (where \(x\)~does not occur free in~\(F\)). Then
 \[\Om_F=\om_F\om_F=(\lambda x.F(xx))\om_F=F(\om_F\om_F)=F(\Om_F)\]
 In other words, \(X=\Om_F\) is a fixed point of~\(F\).
 
